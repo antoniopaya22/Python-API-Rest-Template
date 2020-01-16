@@ -12,8 +12,8 @@ class User(db.Model):
             "id": self.id,
             "firstName": self.firstName,
             "lastName": self.lastName,
-            "hash": self.hash,
-            "salt": self.salt
+            "hash": self.hash.hex() if type(self.hash) == bytes else self.hash,
+            "salt": self.salt.hex() if type(self.salt) == bytes else self.salt
         }
 
     def __repr__(self):
