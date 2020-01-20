@@ -2,7 +2,6 @@ from flask import Flask
 from flask_cors import CORS
 from .config import Config
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
 
 class App():
 
@@ -14,7 +13,6 @@ class App():
         CORS(self.app)
         self.config()
         self.db.init_app(self.app)
-        self.migrate = Migrate(self.app, self.db)
         with self.app.app_context():
             # Imports parts of out app
             self.import_routes()
@@ -41,4 +39,5 @@ class App():
 # START
 application = App(__name__)
 app = application.get_app()
+db = application.get_db()
 application.init_app()
