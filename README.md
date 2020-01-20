@@ -40,7 +40,7 @@ _______
 
 Para ejecutar la API-Rest en modo de desarrollo o testeo se deben ejecutar las siguientes instrucciones:
 
-```python
+```bash
 virtualenv venv
 .\venv\Scripts\activate
 pip install -r requirements.txt
