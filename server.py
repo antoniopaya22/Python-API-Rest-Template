@@ -1,6 +1,5 @@
+"""App entry point."""
+from api import app
 
 if __name__ == '__main__':
-    print("====================")
-    print("API-REST")
-    from src import app
-    app.run()
+    app.run(host='0.0.0.0', debug=True)

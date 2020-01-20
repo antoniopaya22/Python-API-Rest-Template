@@ -1,12 +1,15 @@
-from src.models.user import User
-from src import db
+from api.models.user import User
+from api import application
 
 class UserRepository:
 
+    def __init__(self):
+        self.db = application.get_db()
+
     def add_user(self, user):
         try:
-            db.session.add(user)
-            db.session.commit()
+            self.db.session.add(user)
+            self.db.session.commit()
         except:
             return False
         return True
@@ -14,7 +17,7 @@ class UserRepository:
     def delete_user(self, id):
         try:
             User.query.filter_by(id=id).delete()
-            db.session.commit()
+            self.db.session.commit()
         except:
             return False
         return True

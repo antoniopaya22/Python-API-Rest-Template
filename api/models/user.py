@@ -1,4 +1,5 @@
-from .. import db
+from api import application
+db = application.get_db()
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
