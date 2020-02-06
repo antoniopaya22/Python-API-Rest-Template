@@ -15,9 +15,9 @@ class Auth:
         self.secret = "secretAPI-RESTnodejs1234$"
 
     def login(self, request):
-        firstName = request.json['firstName']
+        username = request.json['username']
         password = request.json['password']
-        user = self.user_repository.get_user_by_name(firstName)
+        user = self.user_repository.get_user_by_name(username)
         if user is None:
             return {"Result": False, "Error": "El usuario no existe"}
         salt = hashlib.sha256(self.secret.encode('ascii')).hexdigest().encode('ascii')
@@ -25,7 +25,7 @@ class Auth:
                                    salt, 100000)
         hash = binascii.hexlify(hash).hex()
         if user.hash == hash:
-            token = jwt.encode({"firstName": user.firstName, 'exp': int(time.time()) + 3600 * 24},
+            token = jwt.encode({"username": user.username, 'exp': int(time.time()) + 3600 * 24},
                                self.secret, algorithm='HS256')
             return token
         else:

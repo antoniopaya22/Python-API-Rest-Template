@@ -24,7 +24,7 @@ class UserRepository:
         return True
 
     def get_user_by_name(self, name):
-        return User.query.filter_by(firstName=name).one()
+        return User.query.filter_by(username=name).one()
 
     def get_user_by_id(self, id):
         return User.query.get(id)

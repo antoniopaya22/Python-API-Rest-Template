@@ -16,7 +16,7 @@ class UserController:
                                    salt, 100000)
         hash = binascii.hexlify(hash).hex()
         user = User(
-            firstname=request.json['firstname'],
+            username=request.json['username'],
             lastname=request.json['lastname'],
             hash=hash,
             salt=salt.hex()
