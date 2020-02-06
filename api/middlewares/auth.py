@@ -3,7 +3,10 @@ import time
 from api.repository.user_repository import UserRepository
 import hashlib, binascii
 from flask import abort
+from functools import wraps
+from flask import Flask, request, jsonify, make_response
 import jwt
+
 
 class Auth:
 
@@ -26,20 +29,21 @@ class Auth:
                                self.secret, algorithm='HS256')
             return token
         else:
-            abort(400,"Contraseña incorrecta")
+            abort(400, "Contraseña incorrecta")
 
-    def verify_token(self, token):
+
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = None
+        if 'Authorization' in request.headers:
+            token = request.headers['Authorization']
+        if not token:
+            return jsonify({"meassage": "Token is missing"}), 401
         try:
-            jwt.decode(token, self.secret, algorithm='HS256')
-            return True
-        except jwt.ExpiredSignatureError:
-            return False
-        except jwt.InvalidTokenError:
-            return False
+            jwt.decode(token, "secretAPI-RESTnodejs1234$", algorithm='HS256')
+        except jwt.ExpiredSignatureError or jwt.InvalidTokenError:
+            return jsonify({"message": "Token is invalid"}), 401
+        return f(*args, **kwargs)
 
-    def login_required(self, request, fn):
-        token = request.headers['Authorization'] if 'Authorization' in request.headers else ''
-        if self.verify_token(token):
-            return fn
-        else:
-            abort(401, "Unauthorized Access")
+    return decorated

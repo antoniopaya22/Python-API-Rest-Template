@@ -38,6 +38,12 @@ _______
 
 ## 2. Ejecutar
 
+### 2.1. Variables de entorno
+Mediante las variables de entorno se pueden cambiar tanto la Base de datos como el modo de ejecución. Nombres:
+
+> DATABASE_URL: Url a la base de datos
+> MODE: dev, test o prod
+
 Para ejecutar la API-Rest en modo de desarrollo o testeo se deben ejecutar las siguientes instrucciones:
 
 ```bash

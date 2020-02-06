@@ -1,6 +1,7 @@
 from api.models.user import User
 from api import application
 
+
 class UserRepository:
 
     def __init__(self):

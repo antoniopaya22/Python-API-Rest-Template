@@ -3,6 +3,7 @@ from api.repository.user_repository import UserRepository
 from flask import abort
 import hashlib, binascii
 
+
 class UserController:
 
     def __init__(self):
@@ -12,11 +13,11 @@ class UserController:
     def add_user(self, request):
         salt = hashlib.sha256(self.secret.encode('ascii')).hexdigest().encode('ascii')
         hash = hashlib.pbkdf2_hmac('sha512', request.json['password'].encode('utf-8'),
-                                      salt, 100000)
+                                   salt, 100000)
         hash = binascii.hexlify(hash).hex()
         user = User(
-            firstName=request.json['firstName'],
-            lastName=request.json['lastName'],
+            firstname=request.json['firstname'],
+            lastname=request.json['lastname'],
             hash=hash,
             salt=salt.hex()
         )
@@ -29,11 +30,11 @@ class UserController:
         if self.user_repository.delete_user(id):
             return {"Result": True}
         else:
-            return abort(400,"Error al eliminar el usuario con id"+str(id))
+            return abort(400, "Error al eliminar el usuario con id" + str(id))
 
     def get_user_by_id(self, id):
         user = self.user_repository.get_user_by_id(id)
-        return user.to_json() if user is not None else abort(400,"No existe un usuario con id: "+str(id))
+        return user.to_json() if user is not None else abort(400, "No existe un usuario con id: " + str(id))
 
     def get_all_users(self):
         users = self.user_repository.get_all_users()

@@ -1,9 +1,11 @@
 from flask import Flask
 from flask_cors import CORS
-from .config import Config
+from .config import get_mode
 from flask_sqlalchemy import SQLAlchemy
+import os
 
-class App():
+
+class App:
 
     def __init__(self, name):
         self.app = Flask(name)
@@ -24,7 +26,7 @@ class App():
         from .routes import user_routes
 
     def config(self):
-        self.app.config.from_object(Config)
+        self.app.config.from_object(get_mode(os.environ.get('MODE')) or 'dev')
 
     def get_db(self):
         return self.db
