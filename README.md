@@ -54,7 +54,7 @@ Para ejecutar la API-Rest en modo de desarrollo o testeo se deben ejecutar las s
 virtualenv venv
 .\venv\Scripts\activate
 pip install -r requirements.txt
-python server.py run
+python server.py dev
 ```
 
 ## 2. Ejecutar con Docker
