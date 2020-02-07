@@ -2,13 +2,14 @@ import binascii
 import hashlib
 import time
 import jwt
+import os
 
 from functools import wraps
 from flask import abort
 from flask import request, jsonify
 from api.repository.user_repository import UserRepository
 
-secret = "secretAPI-RESTnodejs1234$"
+secret = os.environ.get('SECRET') or "secretAPI-RESTnodejs1234$"
 
 
 class Auth:

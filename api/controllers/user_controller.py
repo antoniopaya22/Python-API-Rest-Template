@@ -1,11 +1,12 @@
 import binascii
 import hashlib
+import os
 
 from flask import abort
 from api.models.user import User
 from api.repository.user_repository import UserRepository
 
-secret = "secretAPI-RESTnodejs1234$"
+secret = os.environ.get('SECRET') or "secretAPI-RESTnodejs1234$"
 
 
 class UserController:
