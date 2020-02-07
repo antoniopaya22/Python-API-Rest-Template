@@ -1,20 +1,14 @@
 """App entry point."""
 import unittest
-from flask_script import Manager
-from flask_migrate import Migrate, MigrateCommand
-from api import app, db
+import argparse
 
-manager = Manager(app)
-migrate = Migrate(app, db)
-manager.add_command('db', MigrateCommand)
+from api import create_app
 
 
-@manager.command
-def run():
+def run(app):
     app.run(host='0.0.0.0')
 
 
-@manager.command
 def test():
     """Runs the unit tests."""
     tests = unittest.TestLoader().discover('./test', pattern='test*.py')
@@ -24,5 +18,21 @@ def test():
     return 1
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(description='API Rest')
+    parser.add_argument("mode", help="Run Mode [dev | prod | test]")
+    args = parser.parse_args()
+    return args
+
+
+def main(args):
+    mode = args.mode
+    app = create_app(mode)
+    if mode == "test":
+        test()
+    else:
+        run(app)
+
+
 if __name__ == '__main__':
-    manager.run()
+    main(parse_args())

@@ -1,6 +1,4 @@
-from api import application
-
-db = application.get_db()
+from api import db
 
 
 class User(db.Model):

@@ -20,7 +20,7 @@ class Test(object):
 class Production(object):
     # DATABASE_URL -> Variable de entorno del sistema
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-                              'sqlite:///' + os.path.join(basedir, 'database.db')
+                              'sqlite:///' + os.path.join(basedir, 'prod_db.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 

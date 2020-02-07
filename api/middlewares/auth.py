@@ -1,32 +1,32 @@
+import binascii
+import hashlib
 import time
-
-from api.repository.user_repository import UserRepository
-import hashlib, binascii
-from flask import abort
-from functools import wraps
-from flask import Flask, request, jsonify, make_response
 import jwt
+
+from functools import wraps
+from flask import abort
+from flask import request, jsonify
+from api.repository.user_repository import UserRepository
+
+secret = "secretAPI-RESTnodejs1234$"
 
 
 class Auth:
 
-    def __init__(self):
-        self.user_repository = UserRepository()
-        self.secret = "secretAPI-RESTnodejs1234$"
-
-    def login(self, request):
+    @staticmethod
+    def login(request):
         username = request.json['username']
         password = request.json['password']
-        user = self.user_repository.get_user_by_name(username)
+        user = UserRepository.get_user_by_name(username)
         if user is None:
             return {"Result": False, "Error": "El usuario no existe"}
-        salt = hashlib.sha256(self.secret.encode('ascii')).hexdigest().encode('ascii')
+        salt = hashlib.sha256(secret.encode('ascii')).hexdigest().encode('ascii')
         hash = hashlib.pbkdf2_hmac('sha512', password.encode('utf-8'),
                                    salt, 100000)
         hash = binascii.hexlify(hash).hex()
         if user.hash == hash:
             token = jwt.encode({"username": user.username, 'exp': int(time.time()) + 3600 * 24},
-                               self.secret, algorithm='HS256')
+                               secret, algorithm='HS256')
             return token
         else:
             abort(400, "Contraseña incorrecta")

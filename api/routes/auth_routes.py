@@ -1,6 +1,6 @@
 from flask_cors import cross_origin
-from flask import request, jsonify
-from api import app
+from flask import request
+from flask import current_app as app
 from api.middlewares.auth import Auth
 
 auth = Auth()
