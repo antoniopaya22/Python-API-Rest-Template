@@ -6,12 +6,12 @@ from api import create_app
 
 
 def run(app):
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=3000)
 
 
 def test():
     """Runs the unit tests."""
-    tests = unittest.TestLoader().discover('./test', pattern='test*.py')
+    tests = unittest.TestLoader().discover('./api/test', pattern='test*.py')
     result = unittest.TextTestRunner(verbosity=2).run(tests)
     if result.wasSuccessful():
         return 0

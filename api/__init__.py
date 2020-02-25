@@ -11,12 +11,13 @@ def create_app(mode):
     app.config.from_object(get_mode(mode))
     db.init_app(app)
 
-    with app.app_context():
-        # Imports Routes
-        from .routes import auth_routes
-        from .routes import user_routes
+    app.app_context().push()
+    # Imports Routes
+    from .routes import auth_routes
+    from .routes import user_routes
 
-        # Create tables for models
-        db.create_all()
 
-        return app
+    # Create tables for models
+    db.create_all()
+
+    return app

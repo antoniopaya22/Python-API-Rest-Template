@@ -20,7 +20,7 @@ class Auth:
         password = request.json['password']
         user = UserRepository.get_user_by_name(username)
         if user is None:
-            return {"Result": False, "Error": "El usuario no existe"}
+            return {"Result": False, "Error": "El usuario no existe"}, 401
         salt = hashlib.sha256(secret.encode('ascii')).hexdigest().encode('ascii')
         hash = hashlib.pbkdf2_hmac('sha512', password.encode('utf-8'),
                                    salt, 100000)
@@ -30,7 +30,7 @@ class Auth:
                                secret, algorithm='HS256')
             return token
         else:
-            abort(400, "Contraseña incorrecta")
+            return {"Result": False, "Error": "Contraseña incorrecta"}, 401
 
 
 def token_required(f):
