@@ -5,8 +5,6 @@
 ![Flask-SQLAlchemy](https://img.shields.io/badge/Flask--SQLAlchemy-2.4.1-red.svg?longCache=true&style=flat-square&logo=flask&logoColor=white&colorA=4c566a&colorB=5e81ac)
 ![TravisCI](https://travis-ci.com/antonioalfa22/Python-API-Rest-Template.svg?branch=master)
 [![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://github.com/ellerbrock/open-source-badge/)
-[![star this repo](http://githubbadges.com/star.svg?user=antonioalfa22&repo=Python-API-Rest-Template&style=flat)](https://github.com/antonioalfa22/Python-API-Rest-Template)
-[![fork this repo](http://githubbadges.com/fork.svg?user=antonioalfa22&repo=Python-API-Rest-Template&style=flat)](https://github.com/antonioalfa22/Python-API-Rest-Template/fork)
 
 ## 1. Estructura y Flujo
 
